@@ -408,21 +408,13 @@ public class MenuControll : MonoBehaviour
 
     public void Btn_Moregame_Click()
     {
-#if UNITY_ANDROID
-        //store android
-        Application.OpenURL("https://play.google.com/store/apps/developer?id=SplayGame");
-#elif UNITY_IPHONE && !UNITY_EDITOR
-        //store iOs
-        Application.OpenURL("https://itunes.apple.com/us/artist/duc-nguyen/id909836176");
-#endif
-        //store Web
-        //Application.OpenURL("http://www.windowsphone.com/vi-VN/store/publishers?publisherId=Cachep%2BStudio&appId=1e49cf99-6499-434e-b0d9-aa6ca9656161");
+        Debug.Log("More games link is not configured for this build.");
     }
 
     public void Btn_Feedback_Click()
     {
         string content = VariableSystem.language.Equals("Vietnamese") ? "Hãy góp ý với chúng tôi: " : "Please send us your advise: ";
-        Application.OpenURL("mailto:splaygamemoi@gmail.com?subject=Bussiness Farm Feedback&body=" + content);
+        Application.OpenURL("mailto:?subject=Colorful Farm Feedback&body=" + content);
     }
 
     public void CallbackLogoScaleFinish()

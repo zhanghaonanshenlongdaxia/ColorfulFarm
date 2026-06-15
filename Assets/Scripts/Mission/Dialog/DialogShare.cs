@@ -51,9 +51,9 @@ public class DialogShare : DialogAbs {
     {
         Debug.Log("rate");
 #if UNITY_ANDROID
-        Application.OpenURL("market://details?id=com.redeye.farmbusiness");
+        Application.OpenURL("market://details?id=com.colorfulfarm.taptap");
 #elif UNITY_IPHONE
-     Application.OpenURL("itms-apps://itunes.apple.com/app/com.redeye.farmbusiness");
+        Debug.Log("iOS rating link is not configured for this build.");
 #endif
 
     }

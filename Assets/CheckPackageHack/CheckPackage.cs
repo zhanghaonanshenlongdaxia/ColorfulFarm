@@ -38,7 +38,7 @@ public class CheckPackage : MonoBehaviour {
 	
 	static AndroidJavaClass prepareLog ()
 	{
-		return new AndroidJavaClass ("com.splaygame.checkpackage.Check");
+		return new AndroidJavaClass ("com.colorfulfarm.checkpackage.Check");
 	}
 	
 	public static bool check(){
