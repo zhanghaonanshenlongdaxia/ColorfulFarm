@@ -51,7 +51,7 @@ public class DialogShare : DialogAbs {
     {
         Debug.Log("rate");
 #if UNITY_ANDROID
-        Application.OpenURL("market://details?id=com.colorfulfarm.taptap");
+        Application.OpenURL(BrandingConfig.AndroidRateUrl);
 #elif UNITY_IPHONE
         Debug.Log("iOS rating link is not configured for this build.");
 #endif

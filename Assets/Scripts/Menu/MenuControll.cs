@@ -414,7 +414,7 @@ public class MenuControll : MonoBehaviour
     public void Btn_Feedback_Click()
     {
         string content = VariableSystem.language.Equals("Vietnamese") ? "Hãy góp ý với chúng tôi: " : "Please send us your advise: ";
-        Application.OpenURL("mailto:?subject=Colorful Farm Feedback&body=" + content);
+        Application.OpenURL(BrandingConfig.BuildFeedbackMailto(content));
     }
 
     public void CallbackLogoScaleFinish()

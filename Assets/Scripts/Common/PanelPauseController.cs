@@ -109,7 +109,7 @@ public class PanelPauseController : MonoBehaviour
     public void QC_Click()
     {
         audioControl.PlaySound("Click 1");
-        Application.OpenURL("http://s.qplay.vn/");
+        Debug.Log("Promo link is not configured for this build.");
     }
     public void RePlay_Click()
     {
