@@ -192,7 +192,8 @@ public class DialogSetting : DialogAbs
     public void ButtonInfo()
     {
         Debug.Log("Show ButtonInfo");
-        transform.parent.Find("DialogInfo").GetComponent<DialogInfo>().ShowDialog();
+        Transform confirm = Instantiate(DilogConfirm) as Transform;
+        confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(BrandingConfig.InfoTitle, BrandingConfig.InfoBody);
     }
 
     public void ButtonFB()
