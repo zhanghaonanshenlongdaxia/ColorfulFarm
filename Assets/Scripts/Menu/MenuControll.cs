@@ -157,6 +157,15 @@ public class MenuControll : MonoBehaviour
     {
         //audioControl.PlaySound("Click 1");
         AudioControl.DPlaySound("Click 1");
+        if (ReleaseConfig.UseGuestMode)
+        {
+            LoadingScene.ShowLoadingScene("Mission", true);
+            if (!exitScene)
+            {
+                exitScene = true;
+            }
+            return;
+        }
         if (FB.IsLoggedIn)
         {
             MissionControl.GetFriendsList();
@@ -232,6 +241,11 @@ public class MenuControll : MonoBehaviour
 
     public void ShowLoginDialog()
     {
+        if (ReleaseConfig.UseGuestMode)
+        {
+            LoadingScene.ShowLoadingScene("Mission", true);
+            return;
+        }
         if (dialogLogin == null)
         {
             LoadingScene.ShowLoadingScene("Mission", true);
@@ -271,6 +285,11 @@ public class MenuControll : MonoBehaviour
     public void LoginButton()
     {
         AudioControl.DPlaySound("Click 1");
+        if (ReleaseConfig.UseGuestMode)
+        {
+            HideLoginDialog();
+            return;
+        }
         if (FB.IsInitialized)
         {
             if (!isShowLogin)
@@ -333,7 +352,8 @@ public class MenuControll : MonoBehaviour
     void ShowCofirm()
     {
         Transform confirm = Instantiate(DialogConfirm) as Transform;
-        confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(MissionControl.Language["Login"], MissionControl.Language["Check_Network"]);
+        string content = ReleaseConfig.UseGuestMode ? "Guest mode is enabled in this test build." : MissionControl.Language["Check_Network"];
+        confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(MissionControl.Language["Login"], content);
     }
 
     public void BackgroundMoveFinish()

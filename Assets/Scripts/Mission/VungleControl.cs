@@ -48,6 +48,11 @@ public class VungleControl : MonoBehaviour
     public void ShowVideoAd()
     {
         Debug.Log("sHOW VIDEO");
+        if (!ReleaseConfig.UseLegacyAds)
+        {
+            Debug.Log("Legacy rewarded ads disabled for this build.");
+            return;
+        }
 #if UNITY_ANDROID
       
         //MobilePlugin.getInstance().ShowToast("SHOW VIDEO VungleAndroid.isVideoAvailable() " + VungleAndroid.isVideoAvailable());

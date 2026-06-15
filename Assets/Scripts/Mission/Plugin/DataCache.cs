@@ -172,7 +172,7 @@ public class DataCache
         }
         Debug.Log("Data save " + dataSave);
         PlayerPrefs.SetString(Mission_data_key, dataSave);
-        if (submitToServer)
+        if (submitToServer && ReleaseConfig.UseLegacySocial)
         {
             Debug.Log("Data send server  " + dataSendServer);
             AudioControl.getMonoBehaviour().StartCoroutine(DHS.PostMeInfoMissionUpdate(FB.UserId, dataSendServer));
@@ -352,7 +352,7 @@ public class DataCache
                 }
                 //Debug.Log("----------LUU ACHIEVEMENT------------ " + achievement);
                 PlayerPrefs.SetString(Achievement_data_key, achievement);
-                if (FB.IsLoggedIn && sendServer)
+                if (ReleaseConfig.UseLegacySocial && FB.IsLoggedIn && sendServer)
                 {
                     //Nếu chưa có playerprefs thì sẽ submit lên luôn
                     //Nếu có rồi thì phải check nó cập nhật hoàn thành từ server về thì mới cho up lên

@@ -53,6 +53,14 @@ public class DialogInapp : DialogAbs
 
     public void ButtonBuy(Transform button)
     {
+        if (!ReleaseConfig.UseLegacyBilling)
+        {
+#if UNITY_ANDROID
+            MobilePlugin.getInstance().ShowToast("In-app purchases are disabled in this test build.");
+#endif
+            Debug.Log("In-app purchases are disabled in this test build.");
+            return;
+        }
         OpenIAB.purchaseProduct(button.parent.name);
     }
 
@@ -105,6 +113,10 @@ public class DialogInapp : DialogAbs
 
     private void OnEnable()
     {
+        if (!ReleaseConfig.UseLegacyBilling)
+        {
+            return;
+        }
         // Listen to all events for illustration purposes
         OpenIABEventManager.billingSupportedEvent += billingSupportedEvent;
         OpenIABEventManager.billingNotSupportedEvent += billingNotSupportedEvent;
@@ -117,6 +129,10 @@ public class DialogInapp : DialogAbs
     }
     private void OnDisable()
     {
+        if (!ReleaseConfig.UseLegacyBilling)
+        {
+            return;
+        }
         // Remove all event handlers
         OpenIABEventManager.billingSupportedEvent -= billingSupportedEvent;
         OpenIABEventManager.billingNotSupportedEvent -= billingNotSupportedEvent;
@@ -129,6 +145,10 @@ public class DialogInapp : DialogAbs
     }
     private void Start()
     {
+        if (!ReleaseConfig.UseLegacyBilling)
+        {
+            return;
+        }
         // Map skus for different stores       
         OpenIAB.mapSku(InAppController.PACKAGE_1, OpenIAB_Android.STORE_GOOGLE, InAppController.PACKAGE_1);
         OpenIAB.mapSku(InAppController.PACKAGE_2, OpenIAB_Android.STORE_GOOGLE, InAppController.PACKAGE_2);
@@ -289,6 +309,14 @@ public class DialogInapp : DialogAbs
 
     public static void ShowInapp()
     {
+        if (!ReleaseConfig.UseLegacyBilling)
+        {
+#if UNITY_ANDROID
+            MobilePlugin.getInstance().ShowToast("The store is disabled in this test build.");
+#endif
+            Debug.Log("The store is disabled in this test build.");
+            return;
+        }
         GameObject.FindWithTag("Inapp").GetComponent<DialogInapp>().ShowDialog();
     }
 }

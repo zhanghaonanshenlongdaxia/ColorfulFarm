@@ -119,6 +119,13 @@ public class MissionControl : MonoBehaviour
         }
         //Update language button
         transform.Find("Button").Find("ButtonLogin").Find("Label").GetComponent<UILabel>().text = MissionControl.Language["LOGIN"];
+        if (ReleaseConfig.UseGuestMode)
+        {
+            loginButton.gameObject.SetActive(false);
+            transform.Find("Button").Find("ButtonShowMessage").gameObject.SetActive(false);
+            transform.Find("Button").Find("ButtonInviteFriend").gameObject.SetActive(false);
+            transform.Find("Button").Find("ButtonHelpFriend").gameObject.SetActive(false);
+        }
 
         //Show rate
         if (countShowRate >= 7 && !showDialogTryAgain)
@@ -230,7 +237,7 @@ public class MissionControl : MonoBehaviour
         lbLife.text = "" + VariableSystem.heart;
         lbDiamond.text = "" + VariableSystem.diamond;
         
-        if (FB.IsInitialized)
+        if (ReleaseConfig.UseLegacySocial && FB.IsInitialized)
         {
             if (FB.IsLoggedIn)
             {
@@ -311,6 +318,11 @@ public class MissionControl : MonoBehaviour
 
     public void ShowInviteFriends()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            ShowConfirmDisabled("Friends");
+            return;
+        }
         //LeanTween.scale(dialogSelectFriend.gameObject, new Vector3(1, 1, 1f), 0.3f).setEase(LeanTweenType.easeInOutBack);
         dialogLoading.GetComponent<DialogLoading>().ShowLoading();
         dialogSelectFriend.gameObject.SetActive(true);
@@ -319,6 +331,11 @@ public class MissionControl : MonoBehaviour
 
     public void ShowHelpFriends()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            ShowConfirmDisabled("Friends");
+            return;
+        }
 
         dialogLoading.GetComponent<DialogLoading>().ShowLoading();
         dialogSelectFriend.gameObject.SetActive(true);
@@ -328,6 +345,11 @@ public class MissionControl : MonoBehaviour
 
     public void ShowAskForFriend()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            ShowConfirmDisabled("Friends");
+            return;
+        }
         if (!FB.IsLoggedIn)
         {
             ShowLoginDialog();
@@ -402,6 +424,11 @@ public class MissionControl : MonoBehaviour
 
     public void LoginButton(bool hideLoading = true)
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            ShowConfirmDisabled(MissionControl.Language["LOGIN"]);
+            return;
+        }
         //MobilePlugin.getInstance().ShowToast("Click login");
         string error = "";
         //AudioControl.DPlaySound("Click 1");
@@ -492,8 +519,19 @@ public class MissionControl : MonoBehaviour
         confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(MissionControl.Language["Login"], MissionControl.Language["Check_Network"]);
     }
 
+    void ShowConfirmDisabled(string title)
+    {
+        Transform confirm = Instantiate(DialogConfirm) as Transform;
+        confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(title, "This feature is disabled in the current test build.");
+    }
+
     public void ShowLoginDialog()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            ShowConfirmDisabled(MissionControl.Language["LOGIN"]);
+            return;
+        }
         countShowDialogLogin = 0;
         dialogLoading.GetComponent<DialogLoading>().ShowLoading(false);
         dialogLogin.GetComponent<DialogLogin>().ShowDialog();
@@ -537,6 +575,12 @@ public class MissionControl : MonoBehaviour
 
     public static void GetFriendsList()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            IdUserFriends = string.Empty;
+            DataMissionControlNew.getFriendlistFinish = true;
+            return;
+        }
         try
         {
             FB.API("v2.2/me/friends?fields=id,name", Facebook.HttpMethod.GET, result =>
@@ -586,6 +630,12 @@ public class MissionControl : MonoBehaviour
 
     public void CountMessage()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            countMessage = 0;
+            lbCountMessage.transform.parent.gameObject.SetActive(false);
+            return;
+        }
         if (countMessage > 0)
         {
             lbCountMessage.transform.parent.gameObject.SetActive(false);
@@ -653,6 +703,11 @@ public class MissionControl : MonoBehaviour
 
     public void ButtonFreeGem()
     {
+        if (!ReleaseConfig.UseLegacyAds)
+        {
+            ShowConfirmDisabled("Reward");
+            return;
+        }
         GameObject.Find("Vungle").GetComponent<VungleControl>().ShowVideoAd();
     }
 

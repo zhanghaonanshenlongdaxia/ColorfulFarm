@@ -12,6 +12,11 @@ public class CheckPackage : MonoBehaviour {
 
 
 	void Start () {
+		if (!ReleaseConfig.UsePackageHackCheck)
+		{
+			check_online = false;
+			return;
+		}
 #if !UNITY_ANDROID || UNITY_EDITOR
 		check_online = false;
 		return;
@@ -37,6 +42,10 @@ public class CheckPackage : MonoBehaviour {
 	}
 	
 	public static bool check(){
+		if (!ReleaseConfig.UsePackageHackCheck)
+		{
+			return false;
+		}
 #if !UNITY_ANDROID || UNITY_EDITOR
 		return false;
 #endif

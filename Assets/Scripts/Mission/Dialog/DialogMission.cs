@@ -25,6 +25,12 @@ public class DialogMission : DialogAbs
         //When user click login button on DialogLeft
         if (callLogin)
         {
+            if (!ReleaseConfig.UseLegacySocial)
+            {
+                callLogin = false;
+                dialogLeft.GetComponent<DialogMissionLeft>().SetData(level);
+                return;
+            }
             if (FB.IsLoggedIn)
             {
                 callLogin = false;
@@ -72,6 +78,11 @@ public class DialogMission : DialogAbs
 
     public void LoginButton()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            dialogLeft.GetComponent<DialogMissionLeft>().SetData(level);
+            return;
+        }
         transform.parent.parent.gameObject.GetComponent<MissionControl>().LoginButton();
         callLogin = true;
     }

@@ -12,6 +12,12 @@ public class DialogMissionLeft : MonoBehaviour
       // Debug.Log("aaaaaaaaaaaaaaaaaa " + MissionControl.Language["Rank"]);
         transform.Find("Rank").GetComponent<UILabel>().text = MissionControl.Language["Rank"];
         transform.Find("ButtonLogin").Find("Label").GetComponent<UILabel>().text = MissionControl.Language["LOGIN"];
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            transform.Find("ButtonLogin").gameObject.SetActive(false);
+            Hide();
+            return;
+        }
         if (FB.IsLoggedIn)
         {
             transform.Find("ButtonLogin").gameObject.SetActive(false);

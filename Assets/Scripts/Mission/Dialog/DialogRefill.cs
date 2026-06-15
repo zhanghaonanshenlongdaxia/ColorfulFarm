@@ -57,6 +57,14 @@ public class DialogRefill : DialogAbs {
 
     public void ButtonAskFriends()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            HideDialog();
+            Transform confirm = Instantiate(DialogConfirm) as Transform;
+            confirm.parent = transform;
+            confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(MissionControl.Language["REFILL"], "Friend help is disabled in this test build.");
+            return;
+        }
         HideDialog();
         transform.parent.parent.GetComponent<MissionControl>().ShowAskForFriend();
     }

@@ -13,6 +13,11 @@ public class DFB
     #region Init, login, logout FB
     public static void FBInit()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            Debug.Log("Legacy Facebook disabled for this build.");
+            return;
+        }
 #if UNITY_EDITOR
         Debug.Log("Skip legacy Facebook init in editor.");
         return;
@@ -37,6 +42,11 @@ public class DFB
 
     public static void FBLogin(Facebook.FacebookDelegate callback = null, String appPermision = "publish_actions, user_friends")
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            Debug.Log("Legacy Facebook login disabled for this build.");
+            return;
+        }
         try
         {
             if (callback == null)
@@ -72,6 +82,10 @@ public class DFB
 
     public static void FBLogout()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            return;
+        }
         try
         {
             FB.Logout();

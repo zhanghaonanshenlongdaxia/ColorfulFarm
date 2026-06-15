@@ -35,6 +35,10 @@ public class GoogleAnalytics : MonoBehaviour
 
     public void LogScreen(string title)
     {
+        if (!ReleaseConfig.UseLegacyAnalytics)
+        {
+            return;
+        }
 #if UNITY_EDITOR
         return;
 #endif

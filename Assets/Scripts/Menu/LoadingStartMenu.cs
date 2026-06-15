@@ -12,7 +12,10 @@ public class LoadingStartMenu : MonoBehaviour
     void Awake()
     {
         goMenu = false;
-        DFB.FBInit();
+        if (ReleaseConfig.UseLegacySocial)
+        {
+            DFB.FBInit();
+        }
         showGift = true;
         showFullBanner = false;
         

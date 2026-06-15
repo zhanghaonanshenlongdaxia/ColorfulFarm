@@ -26,7 +26,7 @@ public class Avatar : MonoBehaviour {
             }
             else
             {
-                if(FB.IsLoggedIn )
+                if(ReleaseConfig.UseLegacySocial && FB.IsLoggedIn )
                 {
                     DFB.FBLoadAndSaveAvatar(monobehavior, "" + UserId, texture =>
                     {

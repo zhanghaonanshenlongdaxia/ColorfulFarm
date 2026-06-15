@@ -18,7 +18,11 @@ public class DialogSetting : DialogAbs
 
     void Update()
     {
-        if (FB.IsLoggedIn)
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            lbFb.text = "Guest";
+        }
+        else if (FB.IsLoggedIn)
         {
             lbFb.text = MissionControl.Language["Logout"];
         }
@@ -193,6 +197,12 @@ public class DialogSetting : DialogAbs
 
     public void ButtonFB()
     {
+        if (!ReleaseConfig.UseLegacySocial)
+        {
+            Transform confirm = Instantiate(DilogConfirm) as Transform;
+            confirm.GetComponent<DialogConfirm>().ShowDialogHideCancel(MissionControl.Language["LOGIN"], "Guest mode is enabled in this test build.");
+            return;
+        }
         if(FB.IsLoggedIn)
         {
             DataCache.SaveAchievementCache(true);    
